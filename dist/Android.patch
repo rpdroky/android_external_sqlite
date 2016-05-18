@@ -1,24 +1,24 @@
 diff -r -u -d orig/shell.c ./shell.c
---- orig/shell.c	2016-03-29 03:47:24.000000000 -0700
-+++ ./shell.c	2016-03-31 14:02:13.648539370 -0700
-@@ -52,6 +52,12 @@
- #endif
+--- orig/shell.c	2016-05-18 04:07:03.000000000 -0700
++++ ./shell.c	2016-05-18 14:48:47.315010316 -0700
+@@ -53,6 +53,13 @@
  #include <ctype.h>
  #include <stdarg.h>
+ 
 +// Begin Android Add
 +#ifndef NO_ANDROID_FUNCS
 +#include "IcuUtils.h"
 +#include <sqlite3_android.h>
 +#endif
 +// End Android Add
- 
++
  #if !defined(_WIN32) && !defined(WIN32)
  # include <signal.h>
-@@ -2104,6 +2110,21 @@
+ # if !defined(__RTP__) && !defined(_WRS_KERNEL)
+@@ -2368,6 +2375,20 @@
                              readfileFunc, 0, 0);
      sqlite3_create_function(p->db, "writefile", 2, SQLITE_UTF8, 0,
                              writefileFunc, 0, 0);
-+
 +// Begin Android Add
 +#ifndef NO_ANDROID_FUNCS
 +    InitializeIcuOrDie();
